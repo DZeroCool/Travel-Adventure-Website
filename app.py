@@ -31,6 +31,12 @@ kazakhstan
 russia
 mongolia""".splitlines()
 
+for country in countries:
+	try:
+		os.mkdir("static/uploads/" + country)
+	except:
+		pass
+
 current_country = "kosovo"
 
 class User(UserMixin):
@@ -109,8 +115,11 @@ def login():
 @login_required
 def upload():
 	if request.method == "POST":
+		country = request.form.get("country")
+		if country not in countries:
+			return "invalid country"
 		if 'file' not in request.files:
-			return "error"
+			return "please upload a file"
 		files = request.files.getlist('file')
 		names = []
 		for file in files:
@@ -118,8 +127,8 @@ def upload():
 				continue
 			filename = secure_filename(file.filename)
 			names.append(filename)
-			file.save(os.path.join("static", "uploads", filename))
-		return redirect(url_for('gallery', img=names))
+			file.save(os.path.join("static", "uploads", country, filename))
+		return redirect(url_for('gallery', country=country, img=names))
 	return render_template("upload.html", countries=countries, current_country=current_country)
 
 
@@ -128,8 +137,9 @@ def upload():
 def gallery():
 	html = ""
 	names = request.args.getlist('img')
+	country = request.args.get('country')
 	for name in names:
-		html += "<img src='uploads/" + name + "'></img>"
+		html += "<img src='uploads/" + country + "/" + name + "'></img>"
 	return html
 
 
