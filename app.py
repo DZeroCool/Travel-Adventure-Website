@@ -1,7 +1,10 @@
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, flash, send_from_directory
 from flask_login import UserMixin, login_required, login_user, logout_user, current_user, LoginManager
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__, static_url_path='')
+
 with open("secretkey.txt") as secretfile:
 	app.secret_key = secretfile.read()
 login_manager = LoginManager()
@@ -83,10 +86,32 @@ def login():
 
 
 
-@app.route("/upload")
+@app.route("/upload", methods=['GET', 'POST'])
 @login_required
 def upload():
-    return 'Logged in as: ' + current_user.id
+	if request.method == "POST":
+		if 'file' not in request.files:
+			return "error"
+		files = request.files.getlist('file')
+		names = []
+		for file in files:
+			if not file or file.filename == '':
+				continue
+			filename = secure_filename(file.filename)
+			names.append(filename)
+			file.save(os.path.join("static", "uploads", filename))
+		return redirect(url_for('gallery', img=names))
+	return app.send_static_file("upload.html")
+
+
+
+@app.route("/gallery")
+def gallery():
+	html = ""
+	names = request.args.getlist('img')
+	for name in names:
+		html += "<img src='uploads/" + name + "'></img>"
+	return html
 
 
 @app.route("/backstage")
@@ -105,3 +130,5 @@ def logout():
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     return redirect(url_for('login'))
+
+
