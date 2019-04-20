@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request, flash, send_from_directory
+from flask import Flask, redirect, url_for, request, flash, send_from_directory, render_template
 from flask_login import UserMixin, login_required, login_user, logout_user, current_user, LoginManager
 from werkzeug.utils import secure_filename
 import os
@@ -13,6 +13,25 @@ login_manager.init_app(app)
 users = {
 	'llama': { 'password': 'adventure' }
 }
+countries = """finland
+sweden
+denmark
+germany
+czechia
+austria
+slovakia
+hungaria
+serbia
+kosovo
+bulgaria
+turkey
+georgia
+azerbaijan
+kazakhstan
+russia
+mongolia""".splitlines()
+
+current_country = "kosovo"
 
 class User(UserMixin):
     pass
@@ -101,7 +120,7 @@ def upload():
 			names.append(filename)
 			file.save(os.path.join("static", "uploads", filename))
 		return redirect(url_for('gallery', img=names))
-	return app.send_static_file("upload.html")
+	return render_template("upload.html", countries=countries, current_country=current_country)
 
 
 

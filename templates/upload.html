@@ -3,5 +3,16 @@
 <h1>Upload new File</h1>
 <form action="/upload" method="POST" enctype="multipart/form-data">
 <input type=file name=file multiple>
+<select name="country">
+
+{% for country in countries %}
+	<option
+		{% if country == current_country %}
+			selected
+		{% endif %}
+	>{{country}}</option>
+{% endfor %}
+
+</select>
 <input type=submit value=Upload>
 </form>
