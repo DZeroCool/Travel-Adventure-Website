@@ -11,7 +11,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 users = {
-	'llama': { 'password': 'adventure' }
+	'llama': { 'display_name': 'Test Account', 'password': 'adventure' }
 }
 countries = """finland
 sweden
@@ -40,7 +40,7 @@ for country in countries:
 current_country = "kosovo"
 
 class User(UserMixin):
-    pass
+    display_name = "(none)"
 
 @login_manager.user_loader
 def user_loader(username):
@@ -48,6 +48,7 @@ def user_loader(username):
         return
     user = User()
     user.id = username
+    user.display_name = users[username]["display_name"]
     return user
 
 @login_manager.request_loader
@@ -58,6 +59,7 @@ def request_loader(request):
 
     user = User()
     user.id = username
+    user.display_name = users[username]["display_name"]
 
     # DO NOT ever store passwords in plaintext and always compare password
     # hashes using constant-time comparison!
@@ -102,6 +104,7 @@ def login():
     if username in users and request.form['pw'] == users[username]['password']:
         user = User()
         user.id = username
+        user.display_name = users[username]["display_name"]
         login_user(user)
         return redirect(url_for('home'))
 
@@ -111,6 +114,7 @@ def login():
 
 
 
+import json, uuid
 @app.route("/upload", methods=['GET', 'POST'])
 @login_required
 def upload():
@@ -121,26 +125,38 @@ def upload():
 		if 'file' not in request.files:
 			return "please upload a file"
 		files = request.files.getlist('file')
-		names = []
+		#names = []
 		for file in files:
 			if not file or file.filename == '':
 				continue
-			filename = secure_filename(file.filename)
-			names.append(filename)
+			# filename = secure_filename(file.filename)
+			# filename = hash_file(file)
+			filename = uuid.uuid4().hex + ".jpg"
+			#names.append(filename)
 			file.save(os.path.join("static", "uploads", country, filename))
-		return redirect(url_for('gallery', country=country, img=names))
+			with open(os.path.join("static", "uploads", country, filename + ".json"), "w") as fh:
+				json.dump({
+					"published": True,
+					"filename": filename,
+					"author": current_user.display_name,
+					"blurb": "",
+					"original_filename": secure_filename(file.filename)
+				}, fh)
+		return redirect(url_for('gallery', country=country)) #, img=names
 	return render_template("upload.html", countries=countries, current_country=current_country)
 
 
-
+import glob
 @app.route("/gallery")
 def gallery():
-	html = ""
-	names = request.args.getlist('img')
 	country = request.args.get('country')
-	for name in names:
-		html += "<img src='uploads/" + country + "/" + name + "'></img>"
-	return html
+	images = []
+	for name in glob.glob("static/uploads/" + country + "/*.json"):
+		with open(name, "r") as fh:
+			data = json.load(fh)
+		if data["published"]:
+			images.append(data)
+	return render_template("index.html", country_name=country, images=images)
 
 
 @app.route("/backstage")
