@@ -71,6 +71,7 @@ def request_loader(request):
 
 
 @app.route("/")
+@app.route("/index.html")
 def home():
 	return """
 <a href="/about-us.html">About Us</a><br/>
@@ -79,19 +80,18 @@ def home():
 <a href="/logout">Logout</a><br/>
 <a href="/upload">Upload</a><br/>
 <a href="/backstage">Backstage</a><br/>
+<a href="/gallery?country=">Gallery</a><br/>
 """
 
 
 
 
 
-@app.route("/about")
-def about():
-	app.send_static_file("about.html")
 
 @app.route("/charity")
+@app.route("/charity.html")
 def charity():
-	app.send_static_file("charity.html")
+	return app.send_static_file("charity.html")
 
 
 
@@ -210,7 +210,7 @@ def publishImg():
 @app.route('/logout')
 def logout():
     logout_user()
-    return 'Logged out'
+    return 'Logged out<br><br><a href="/">go back to home page</a>'
 
 
 @login_manager.unauthorized_handler
