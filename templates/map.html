@@ -57,6 +57,9 @@ polygonTemplate.strokeOpacity = 0.5;
 polygonTemplate.fill = "#7f7f7f"
 
 polygonTemplate.events.on("hit", function(ev) {
+	if (ev.target.dataItem.dataContext.name.toLowerCase() == "hungary") {
+		window.location.href = "/gallery?country=hungaria"
+	}
 	for (var cnt in country_ids) {
 		if (cnt == ev.target.dataItem.dataContext.name.toLowerCase()) {
 			window.location.href = "/gallery?country=" + ev.target.dataItem.dataContext.name.toLowerCase()
