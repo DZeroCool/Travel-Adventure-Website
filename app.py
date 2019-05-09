@@ -136,13 +136,14 @@ def upload():
 			file.save(os.path.join("static", "uploads", country, filename))
 			with open(os.path.join("static", "uploads", country, filename + ".json"), "w") as fh:
 				json.dump({
-					"published": True,
+					"published": False,
+					"deleted": False,
 					"filename": filename,
 					"author": current_user.display_name,
 					"blurb": "",
 					"original_filename": secure_filename(file.filename)
 				}, fh)
-		return redirect(url_for('gallery', country=country)) #, img=names
+		return redirect(url_for('backstage')) #, img=names
 	return render_template("upload.html", countries=countries, current_country=current_country)
 
 
@@ -154,7 +155,7 @@ def gallery():
 	for name in glob.glob("static/uploads/" + country + "/*.json"):
 		with open(name, "r") as fh:
 			data = json.load(fh)
-		if data["published"]:
+		if data["published"] and not data["deleted"]:
 			images.append(data)
 	return render_template("index.html", country_name=country, images=images)
 
@@ -162,9 +163,49 @@ def gallery():
 @app.route("/backstage")
 @login_required
 def backstage():
-	return "backstage wow"
+	# get list of unpublished pictures
+	images = []
+	for country in countries:
+		for name in glob.glob("static/uploads/" + country + "/*.json"):
+			with open(name, "r") as fh:
+				data = json.load(fh)
+			if not data["published"] and not data["deleted"]:
+				images.append({
+					"name": data["filename"],
+					"country": country,
+					"author": data["author"],
+					"url": "/uploads/" + country + "/" + data["filename"]
+				})
+	return render_template("backstage.html", images=images)
 
 
+@app.route('/deleteImg', methods=['POST'])
+@login_required
+def deleteImg():
+	if request.form['country'] not in countries:
+		return "bad country"
+	with open("static/uploads/" + request.form['country'] + "/" + request.form['name'] + ".json", "r") as fh:
+		data = json.load(fh)
+	if not (data["published"] or data["deleted"]):
+		data["deleted"] = True
+		with open("static/uploads/" + request.form['country'] + "/" + request.form['name'] + ".json", "w") as fh:
+			json.dump(data, fh)
+	return "ok"
+
+@app.route('/publishImg', methods=['POST'])
+@login_required
+def publishImg():
+	if request.form['country'] not in countries:
+		return "bad country"
+	with open("static/uploads/" + request.form['country'] + "/" + request.form['name'] + ".json", "r") as fh:
+		data = json.load(fh)
+	if not (data["published"] or data["deleted"]):
+		data["published"] = True
+		data["blurb"] = request.form["blurb"]
+		print(data)
+		with open("static/uploads/" + request.form['country'] + "/" + request.form['name'] + ".json", "w") as fh:
+			json.dump(data, fh)
+	return "ok"
 
 @app.route('/logout')
 def logout():

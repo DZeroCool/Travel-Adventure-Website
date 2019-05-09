@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>No Prob-llama - Backstage</title>
+<style>
+*[asd=asd] {
+border: 5px solid green;
+}
+td {
+vertical-align: center;
+text-align: center;
+}
+table {
+table-layout: auto;
+width: 100%;
+height: 400px;
+}
+img {
+object-fit:cover;
+min-width: 400px;
+max-height: 400px;
+}
+textarea {
+width: 100%;
+height: 100%;
+resize: none;
+}
+input {
+width: 100%;
+height: 100%;
+}
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+<script>
+function deleteImg(name, country) {
+	$.post("/deleteImg", {
+		"name": name,
+		"country": country
+	}, function(data, status) {
+		document.getElementById("table-" + name).style.visibility = "hidden";
+	});
+}
+function publishImg(name, country) {
+	$.post("/publishImg", {
+		"name": name,
+		"blurb": document.getElementById("text-" + name).value,
+		"country": country
+	}, function(data, status) {
+		document.getElementById("table-" + name).style.visibility = "hidden";
+	});
+}
+</script>
+</head>
+<body>
+	{% for image in images %}
+	<table id="table-{{image.name}}"><tr>
+		<td rowspan=2><img src="{{ image.url }}" /></td>
+		<td colspan=2>{{image.country}}, {{image.author}}<textarea id="text-{{ image.name }}"></textarea></td>
+	</tr><tr>
+		<td><input type="button" value="publish" onclick="publishImg('{{image.name}}', '{{image.country}}')" /></td>
+		<td><input type="button" value="delete" onclick="deleteImg('{{image.name}}', '{{image.country}}')" /></td>
+	</tr></table>
+	{% endfor %}
+</body>
+</html>
