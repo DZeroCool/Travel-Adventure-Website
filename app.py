@@ -31,6 +31,10 @@ kazakhstan
 russia
 mongolia""".splitlines()
 
+try:
+	os.mkdir("static/uploads")
+except:
+	pass
 for country in countries:
 	try:
 		os.mkdir("static/uploads/" + country)
