@@ -153,7 +153,7 @@ def gallery():
 			data = json.load(fh)
 		if data["published"] and not data["deleted"]:
 			images.append(data)
-	return render_template("index.html", country_name=country, images=images)
+	return render_template("gallery.html", country_name=country, images=images)
 
 
 @app.route("/backstage")
