@@ -77,15 +77,7 @@ def request_loader(request):
 @app.route("/")
 @app.route("/index.html")
 def home():
-	return """
-<a href="/about-us.html">About Us</a><br/>
-<a href="/charity.html">Charities</a><br/>
-<a href="/login">Login</a><br/>
-<a href="/logout">Logout</a><br/>
-<a href="/upload">Upload</a><br/>
-<a href="/backstage">Backstage</a><br/>
-<a href="/gallery?country=">Gallery</a><br/>
-"""
+	return app.send_static_file("homepage.html")
 
 
 
