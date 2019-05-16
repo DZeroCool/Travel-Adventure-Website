@@ -1,0 +1,22 @@
+<style>
+
+video#bgvid { 
+    position: fixed;
+    top: 100%;
+    left: 100%;
+    min-width: 150%;
+    min-height: 200%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -ms-transform: translateX(-100%) translateY(-100%);
+    -moz-transform: translateX(-100%) translateY(-100%);
+    -webkit-transform: translateX(-100%) translateY(-100%);
+    transform: translateX(-100%) translateY(-100%);
+    background: url(polina.jpg) no-repeat;
+    background-size: cover; 
+}
+video {
+  object-fit: fill;
+}
+</style>

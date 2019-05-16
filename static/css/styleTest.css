@@ -1,3 +1,32 @@
+<style>
+
+.container { position:relative; }
+
+.container video {
+
+    position:relative;
+
+    z-index:0;
+
+}
+
+.overlay {
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    z-index:1;
+
+}
+
+
+</style>
+
+/* Test code above this line */
+
 body {
     font-family: sans-serif, arial, helvetica;
 }
@@ -17,6 +46,10 @@ body {
     background-size: auto 80%;
     background-position: 50% 0%;
     background-repeat: no-repeat;
+	/* Center the background image */
+	background-position: center;
+	background-size: cover;
+	
 }
 #section1 {
    /*  background-image: url(https://dgt5r4zz5sach.cloudfront.net/~/media/images/modules/large/hbr_h_gif_final.gif?as=1&t=635549701220714646);*/
@@ -28,7 +61,7 @@ body {
     /* background-image: url(https://dgt5r4zz5sach.cloudfront.net/~/media/images/modules/large/homepage_h_05-notext.jpg?as=1&t=635588424878366703);*/
 }
 #section4 .content {
-    top: 100%;
+    top: 90%;
     position: absolute;
     left: 0;
 }
