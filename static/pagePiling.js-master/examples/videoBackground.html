@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <!-- BootStrap code-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- End of BootStrap code-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Charities</title>
+	<meta name="author" content="Alvaro Trigo Lopez" />
+	<meta name="description" content="pagePiling.js plugin by Alvaro Trigo." />
+	<meta name="keywords"  content="pile,piling,piling.js,stack,pages,scrolling,stacking,touch,fullpile,scroll,plugin,jquery" />
+	<meta name="Resource-type" content="Document" />
+
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:300,400,700" />
+	<link rel="stylesheet" type="text/css" href="../jquery.pagepiling.css" />
+	<link rel="stylesheet" type="text/css" href="examples.css" />
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+	<script type="text/javascript" src="../jquery.pagepiling.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+	    	$('#pagepiling').pagepiling({
+	    		menu: '#menu',
+	    		anchors: ['page1', 'page2', 'page3', 'page4'],
+			    sectionsColor: ['#bfda00', '#2ebe21', '#2C3E50', '#51bec4'],
+			    navigation: {
+			    	'position': 'right',
+			   		'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Pgae 4']
+			   	},
+			   	afterRender: function(){
+					//playing the video
+					$('video').get(0).play();
+				}
+			});
+	    });
+    </script>
+
+    <style>
+    	/* Centered texts in each section
+		* --------------------------------------- */
+		.section{
+			text-align:center;
+		}
+
+		#myVideo{
+			position: absolute;
+			z-index: -1;
+			right: 0;
+			bottom: 0;
+			top:0;
+			right:0;
+			width: 100%;
+			height: 100%;
+			background-size: 100% 100%;
+	 		background-color: black; /* in case the video doesn't fit the whole page*/
+	  		background-image: /* our video */;
+	  		background-position: center center;
+	  		background-size: contain;
+	   		object-fit: cover; /*cover video background */
+		}
+
+		/* Layer with position absolute in order to have it over the video
+		* --------------------------------------- */
+		#section1 .layer{
+			position: absolute;
+			z-index: 5;
+			width: 100%;
+			left: 0;
+			top: 43%;
+			height: 100%;
+		}
+
+		#section1 h1{
+			color:#fff;
+		}
+
+		#infoMenu li a{
+			color: #fff;
+		}
+
+		#section1{
+			overflow: hidden;
+		}
+
+
+    </style>
+</head>
+<body>
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#myPage"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/about-us.html">About US</button></a></li>
+        <li><a href="videoBackground.html">Charity</button></a></li>
+        <li><a href="/login">Login</button></a></li>
+        <li><a href="/logout">Logout</button></a></li>
+		<li><a href="/backstage">Backstage</button></a></li>
+        <li><a href="/gallery?country=">Photo Gallery</button></a></li>
+     <!--   <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Merchandise</a></li>
+            <li><a href="#">Extras</a></li>
+            <li><a href="#">Media</a></li> 
+          </ul>
+        </li> -->
+       
+      </ul>
+    </div>
+  </div>
+</nav>
+
+	<div id="pagepiling">
+	    <div class="section" id="section1">
+	    	<video autoplay loop muted id="myVideo">
+				<source src="imgs/rainForest.mp4" type="video/mp4">
+				<source src="imgs/rainForest.webm" type="video/webm">
+			</video>
+			<div class="layer">
+				<h1><font color="white">Charities</font></h1>
+				<p><font color="white"><h3>The mongol Race is a event for charity. The Adventure of a lifetime is even sweeter while we're rasing money to save the rainforest. Please become part of our the team by donating to a good cause!</h3></font></p>
+			</div>
+	    </div>
+	    <div class="section" id="section2">
+				<video autoplay loop muted id="myVideo">
+				<source src="imgs/rainForest.mp4" type="video/mp4">
+				<source src="imgs/rainForest.webm" type="video/webm">
+			</video>
+	    	<div class="intro">
+	    		<!--<h1>No limits</h1>
+				<p>Anything is possible with pagePiling.js!</p> -->
+				<a href="https://www.coolearth.org/"><h1><font color="white">Cool Earth</font></h1></a>
+				<font color="white"><p><h3>COOL EARTH IS THE NON-PROFIT ORGANISATION THAT WORKS ALONGSIDE RAINFOREST COMMUNITIES TO HALT DEFORESTATION AND ITS IMPACT ON CLIMATE CHANGE. Half of the world’s rainforest has been destroyed in the last 40 years.  And, contrary to the headlines, rainforest continues to be lost at a faster rate than ever. But it’s not too late. Cool Earth believes the rainforest can be saved. We just need a new approach.</h3></p></font>
+	    	</div>
+	    </div>
+	    <div class="section" id="section4">
+		<video autoplay loop muted id="myVideo">
+				<source src="imgs/rainForest.mp4" type="video/mp4">
+				<source src="imgs/rainForest.webm" type="video/webm">
+			</video>
+	    	<div class="intro">
+	    		<h1><font color="white">Our Go Fundme</font></h1>
+<a href="https://www.gofundme.com/charity-fundraiser-for-mongolian-rally"><h3><font color="white"><h3>Campaign page (click me & thanks for the donation inadvance!)</h3></font></a>
+	    	</div>
+	    </div>
+	</div>
+
+</body>
+</html>
