@@ -13,21 +13,27 @@ body {
 	 * --------------------------------------- */
 
  .section {
+	background-color: lightblue;
     background-attachment: fixed;
     background-size: auto 80%;
     background-position: 50% 0%;
     background-repeat: no-repeat;
 }
 #section1 {
+	background-color: lightblue;
    /*  background-image: url(https://dgt5r4zz5sach.cloudfront.net/~/media/images/modules/large/hbr_h_gif_final.gif?as=1&t=635549701220714646);*/
+
 }
 #section2 {
+	background-color: lightblue;
    /* background-image: url(https://dgt5r4zz5sach.cloudfront.net/~/media/images/modules/large/nike%20making%20large.jpg?as=1&t=635616687017735022);*/
 }
 #section3 {
+	background-color: lightblue;
     /* background-image: url(https://dgt5r4zz5sach.cloudfront.net/~/media/images/modules/large/homepage_h_05-notext.jpg?as=1&t=635588424878366703);*/
 }
 #section4 .content {
+	background-color: lightblue;
     top: 100%;
     position: absolute;
     left: 0;

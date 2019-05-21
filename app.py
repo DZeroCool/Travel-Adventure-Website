@@ -84,10 +84,10 @@ def home():
 
 
 
-@app.route("/charity")
-@app.route("/charity.html")
+@app.route("/static/pagePiling.js-master/examples/videoBackground.html")
+@app.route("/static/pagePiling.js-master/examples/videoBackground.html")
 def charity():
-	return app.send_static_file("charity.html")
+	return app.send_static_file("../static/pagePiling.js-master/examples/videoBackground.html")
 
 
 
