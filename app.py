@@ -42,7 +42,7 @@ for country in countries:
 	except:
 		pass
 
-current_country = "kosovo"
+current_country = "finland"
 
 class User(UserMixin):
     display_name = "(none)"
