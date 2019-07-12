@@ -12,7 +12,10 @@ login_manager.init_app(app)
 
 users = {
 	'llama': { 'display_name': 'Test Account', 'password': 'adventure' },
-	'Benki': { 'display_name': 'Eetu', 'password': 'snowman' }
+	'Benki': { 'display_name': 'Eetu', 'password': 'snowman' },
+	'Juan': { 'display_name': 'Juan', 'password': 'adventure1' },
+	'Gabe': { 'display_name': 'Gabe', 'password': 'adventure2' },
+	'Douglas': { 'display_name': 'Douglas', 'password': 'teamLeader' }
 }
 countries = """finland
 sweden
