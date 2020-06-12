@@ -11,7 +11,12 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 users = {
-	'llama': { 'display_name': 'Test Account', 'password': 'adventure' }
+	'llama': { 'display_name': 'Test Account', 'password': 'adventure' },
+	'Benki': { 'display_name': 'Eetu', 'password': 'snowman' },
+	'Juan': { 'display_name': 'Juan', 'password': 'adventure1' },
+	'Gabe': { 'display_name': 'Gabe', 'password': 'adventure2' },
+	'Douglas': { 'display_name': 'Douglas', 'password': 'teamLeader' },
+	'Kirill': { 'display_name': 'Kirill', 'password': 'adventure3' }
 }
 countries = """finland
 sweden
@@ -41,7 +46,7 @@ for country in countries:
 	except:
 		pass
 
-current_country = "kosovo"
+current_country = "finland"
 
 class User(UserMixin):
     display_name = "(none)"
@@ -77,25 +82,17 @@ def request_loader(request):
 @app.route("/")
 @app.route("/index.html")
 def home():
-	return """
-<a href="/about-us.html">About Us</a><br/>
-<a href="/charity.html">Charities</a><br/>
-<a href="/login">Login</a><br/>
-<a href="/logout">Logout</a><br/>
-<a href="/upload">Upload</a><br/>
-<a href="/backstage">Backstage</a><br/>
-<a href="/gallery?country=">Gallery</a><br/>
-"""
+	return app.send_static_file("homepage.html")
 
 
 
 
 
 
-@app.route("/charity")
-@app.route("/charity.html")
+@app.route("/static/pagePiling.js-master/examples/videoBackground.html")
+@app.route("/static/pagePiling.js-master/examples/videoBackground.html")
 def charity():
-	return app.send_static_file("charity.html")
+	return app.send_static_file("../static/pagePiling.js-master/examples/videoBackground.html")
 
 
 
@@ -161,7 +158,7 @@ def gallery():
 			data = json.load(fh)
 		if data["published"] and not data["deleted"]:
 			images.append(data)
-	return render_template("index.html", country_name=country, images=images)
+	return render_template("gallery.html", country_name=country, images=images)
 
 
 @app.route("/backstage")
