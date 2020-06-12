@@ -21,7 +21,7 @@ czechia
 austria
 slovakia
 hungaria
-serbia
+romania
 kosovo
 bulgaria
 turkey
